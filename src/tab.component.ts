@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import {someName} from './tokens'
+
 @Component({
   selector: 'ngx-tab',
   styles: [
@@ -17,5 +19,5 @@ import { Component, Input } from '@angular/core';
 })
 export class TabComponent {
   @Input() tabTitle: string;
-  @Input() active = false;
+  @Input() active = Boolean(someName);
 }

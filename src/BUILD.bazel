@@ -1,6 +1,6 @@
 package(default_visibility = ["//:__subpackages__"])
 
-load("@angular//:index.bzl", "ng_module")
+load("@angular//:index.bzl", "ng_module", "ng_package")
 
 # This build rule invokes the Angular compiler `ngc` on a
 # single compilation unit. In this example, there is only
@@ -19,6 +19,20 @@ ng_module(
     # Normally the index bundle generator in ngc assumes there is an index.ts
     # in each package. We override it with the top-level exported API of this
     # package.
-    entry_point = "ngx-tabs-lib.module.ts",
     tsconfig = "//:tsconfig.json",
+    deps = ["//src/tokens"]
+)
+
+
+ng_package(
+    # Note: currently this is also the name of the resulting bundles
+    name = "ngx-tabs-libdemo",
+    srcs = [
+        "//:package.json", 
+        "//src/tokens:package.json"
+    ],
+    entry_point = "index.js",
+    deps = [":src", "//src/tokens"],
+    secondary_entry_points = ["tokens"],
+
 )

@@ -3,6 +3,7 @@
 
 # Allow the tsconfig.json file to be referenced by subpackages
 exports_files(["tsconfig.json"])
+exports_files(["package.json"])
 
 # Provides the npm-installed dependencies to Bazel actions.
 filegroup(
@@ -24,18 +25,3 @@ filegroup(
     visibility = ["//visibility:public"],
 )
 
-load("@angular//:index.bzl", "ng_module", "ng_package")
-
-ng_module(
-    name = "root_module",
-    srcs = glob(["*.ts"]),
-    deps = ["//src"],
-)
-
-ng_package(
-    # Note: currently this is also the name of the resulting bundles
-    name = "ngx-tabs-libdemo",
-    srcs = [":package.json"],
-    entry_point = "index.js",
-    deps = [":root_module"],
-)
